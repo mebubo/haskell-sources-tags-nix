@@ -11,6 +11,6 @@ let
 
 in
 
-pkgs.callPackage ./tag-sources.nix {
-  inherit haskellPackages packages;
-}
+  pkgs.callPackage ./tag-sources.nix {
+    inherit haskellPackages packages;
+  }

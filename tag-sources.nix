@@ -7,16 +7,16 @@ let
   fast-tags = haskellPackages.fast-tags;
 in
 
-stdenv.mkDerivation {
+  stdenv.mkDerivation {
 
-  name = "haskell-sources-tags";
+    name = "haskell-sources-tags";
 
-  passAsFile = ["buildCommand"];
+    passAsFile = ["buildCommand"];
 
-  buildCommand = ''
-    mkdir -p $out
+    buildCommand = ''
+      mkdir -p $out
 
-    function unpackOrLink {
+      function unpackOrLink {
       local path=$1
       local name=$2
       if [[ -f "$path" ]]; then
@@ -24,13 +24,13 @@ stdenv.mkDerivation {
       else
         ln -sfn $path $out/$name
       fi
-    }
+      }
 
-    ${lib.concatMapStringsSep "\n" (el: "unpackOrLink ${el.src} ${el.name}") (lib.filter (el: el ? src) allDeps)}
+      ${lib.concatMapStringsSep "\n" (el: "unpackOrLink ${el.src} ${el.name}") (lib.filter (el: el ? src) allDeps)}
 
-    echo building tags
+      echo building tags
 
-    ( cd $out; ${fast-tags}/bin/fast-tags --follow-symlinks -R . )
-  '';
+      ( cd $out; ${fast-tags}/bin/fast-tags --follow-symlinks -R . )
+    '';
 
-}
+  }
