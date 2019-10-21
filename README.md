@@ -43,3 +43,16 @@ in
 ```
 set tags+=result/tags
 ```
+
+## Similar projects
+
+- https://github.com/aloiscochard/codex
+
+Advantages of this project compared to codex:
+
+- Simplicity: all the heavy lifting is done by Nix
+- Not limited to downloading sources from Hackage: correct sources are used even if a dependency is modified locally (like `my-custom-library` in the example above)
+
+Disadvantages compared to codex:
+
+- Requires Nix
