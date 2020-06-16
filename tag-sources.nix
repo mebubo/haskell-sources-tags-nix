@@ -2,7 +2,7 @@
 
 let
 
-  allDeps = [ haskellPackages.ghc ] ++ (pkgs.lib.closePropagation packages);
+  allDeps = [ haskellPackages.ghc ] ++ (pkgs.lib.closePropagation (packages haskellPackages));
 
   fast-tags = haskellPackages.fast-tags;
 in
@@ -11,7 +11,7 @@ in
 
     name = "haskell-sources-tags";
 
-    passAsFile = ["buildCommand"];
+    passAsFile = [ "buildCommand" ];
 
     buildCommand = ''
       mkdir -p $out

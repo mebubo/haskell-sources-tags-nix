@@ -9,7 +9,19 @@ Get the sources for all transitive dependencies of a set of haskell packages, an
 Tags for all dependencies of a cabal project:
 
 ```bash
-nix-build --arg cabalProject ./. path/to/haskell-sources-tags-nix/
+nix-build --arg cabalProject ./. --out-link dependencies path/to/haskell-sources-tags-nix/
+```
+
+Or install the package:
+
+```bash
+nix-env -f cabal-sources-tags.nix -i
+```
+
+and then from a cabal project:
+
+```bash
+cabal-sources-tags
 ```
 
 ### From nix
@@ -29,11 +41,11 @@ let
   };
   pkgs = import <nixpkgs> { inherit config; };
   haskellPackages = pkgs.haskellPackages;
+  packages = hp: (with hp; [ turtle lens my-custom-library ]);
 
 in
   pkgs.callPackage ../haskell-sources-tags-nix/tag-sources.nix {
-    inherit pkgs haskellPackages;
-    packages = (with haskellPackages; [ turtle lens my-custom-library ]);
+    inherit pkgs haskellPackages packages;
   }
 
 ```
@@ -41,7 +53,7 @@ in
 ## Vim configuration
 
 ```
-set tags+=result/tags
+set tags+=dependencies/tags
 ```
 
 ## Similar projects

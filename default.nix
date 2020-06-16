@@ -5,9 +5,9 @@
 
 let
 
-  package = haskellPackages.callCabal2nix "" cabalProject {};
+  package = haskellPackages: haskellPackages.callCabal2nix "" cabalProject {};
 
-  packages = (pkgs.haskell.lib.getBuildInputs package).haskellBuildInputs;
+  packages = haskellPackages: (pkgs.haskell.lib.getBuildInputs (package haskellPackages)).haskellBuildInputs;
 
 in
 
