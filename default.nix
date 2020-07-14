@@ -1,5 +1,5 @@
 { cabalProject,
-  pkgs ? import <nixpkgs> {},
+  pkgs ? import <nixpkgs> { config = { allowBroken = true; }; },
   haskellPackages ? pkgs.haskellPackages
 }:
 
