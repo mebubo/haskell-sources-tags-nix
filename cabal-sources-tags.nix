@@ -2,5 +2,5 @@
 
 pkgs.writeShellScriptBin "cabal-sources-tags" ''
   nix-build --out-link dependencies --arg cabalProject ./. ${./.}
-  nix-shell -p haskellPackages.fast-tags --run "fast-tags -R ."
+  nix-shell -p haskellPackages.fast-tags --run "fast-tags --exclude=dist-newstyle -R ."
 ''
